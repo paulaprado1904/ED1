@@ -1,0 +1,106 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+#define MAX 20
+
+// Definir a ED pilha
+struct pilha {
+    int topo;
+    char *elementos;
+};
+
+// Definir o tipo de dados Pilha
+typedef struct pilha Pilha;
+
+// Função para criar uma nova pilha
+Pilha *cria(int tam) {
+    Pilha *p = malloc(sizeof(Pilha));
+    if (p == NULL) {
+        printf("Erro: nao foi possivel criar a pilha\n");
+        exit(-1);
+    }
+    // Aloca espaço para o array de caracteres da pilha
+    p->elementos = calloc(tam, sizeof(char));
+    p->topo = -1;
+
+    return p;
+}
+
+// Função para destruir uma pilha já criada
+void destroi(Pilha *p) {
+    free(p->elementos);
+    free(p);
+}
+
+// Função para verificar se uma pilha está vazia
+int vaziar(Pilha *p) {
+    if (p->topo == -1)
+        return 1; // true
+    else
+        return 0; // false
+}
+
+// Função para verificar se uma pilha está cheia
+int cheiar(Pilha *p, int tam) {
+    if (p->topo == (tam-1))
+        return 1; // true
+    else
+        return 0; // false
+}
+
+// Função para empilhar um caractere na pilha
+int empilha(Pilha *p, int tam, char x) {
+    if (cheiar(p, tam) == 1)
+        return 0; // false
+    else {
+        p->topo = p->topo + 1;
+        p->elementos[p->topo] = x;
+        return 1; // true
+    }
+}
+
+// Função para desempilhar um caractere da pilha
+int desempilha(Pilha *p, char *x) {
+    if (vaziar(p) == 1)
+        return 0; // false
+    else {
+        *x = p->elementos[p->topo];
+        p->topo = p->topo - 1;
+        return 1; // true
+    }
+}
+
+int main() {
+    int tam;
+    char c, str[MAX];
+
+    printf("Digite o tamanho da string (no maximo %d caracteres): ", MAX);
+    scanf("%d", &tam);
+    Pilha *P;
+
+    printf("Digite sua string: ");
+    scanf("%s", str);
+
+    // Cria uma nova pilha com o tamanho fornecido pelo usuário
+    P = cria(tam/2);
+
+    // Empilha a primeira metade da string na pilha
+    for (int i = 0; i < (tam/2); i++) {
+        empilha(P, tam/2, str[i]);
+    }
+
+    // Desempilha a segunda metade da string da pilha e verifica se ela é igual à segunda metade da string original
+    for (int i = tam/2; i < tam; i++) {
+            desempilha(P, &c);
+            if (str[i] != c) {
+                printf("A string nao obedece o formato XY.\n");
+                destroi(P);
+                return 0;
+            }
+        }
+    printf("A string eh XY");
+            destroi(P);
+            return 0;
+
+}
+

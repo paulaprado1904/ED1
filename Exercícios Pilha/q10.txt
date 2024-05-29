@@ -1,0 +1,116 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <ctype.h>
+#include <string.h>
+
+#define MAX 200
+
+// Definir a ED pilha
+struct pilha {
+    int topo;
+    int elementos[MAX];
+};
+
+// Definir o tipo de dados Pilha
+typedef struct pilha Pilha;
+
+Pilha *criar()
+{
+
+    Pilha *p;
+
+    p = malloc(sizeof(Pilha));
+    if (p != NULL)
+        p->topo = -1;
+
+    return p;
+}
+
+void destruir(Pilha *p)
+{
+    if (p != NULL) free(p);
+}
+
+
+int vazia(Pilha *p)
+{
+    if (p->topo == -1) return 1; // true
+    else return 0; // false
+}
+
+
+int cheia(Pilha *p)
+{
+    if (p->topo == (MAX-1))
+        return 1; // true
+    else return 0; // false
+}
+
+int empilhar(Pilha *p, int x)
+{
+    if (cheia(p) == 1)
+        return 0;   // false
+    else {
+        p->topo = p->topo + 1;
+        p->elementos[ p->topo ] = x;
+
+        return 1;   // true
+    }
+}
+
+int desempilhar(Pilha *p, int *x)
+{
+    if (vazia(p) == 1)
+        return 0;   // false
+    else {
+        *x = p->elementos[ p->topo ];
+        p->topo = p->topo - 1;
+
+        return 1;   // true
+    }
+}
+
+int main() {
+
+    char equacao[MAX];
+    Pilha *valores = criar();
+
+    printf("Insira a equacao na notacao polonesa reversa: ");
+    fgets(equacao, MAX, stdin);
+
+    char *token = strtok(equacao, " \n");
+    while (token != NULL) {
+        if (isdigit(token[0])) {
+            int valor = strtol(token, NULL, 10);
+            empilhar(valores, valor);
+        } else {
+            int aux = 0, a = 0, b = 0;
+            desempilhar(valores, &a);
+            desempilhar(valores, &b);
+            switch(token[0]){
+                case '+':
+                    aux = a + b;
+                    break;
+                case '-':
+                    aux = a - b;
+                    break;
+                case '*':
+                    aux = a * b;
+                    break;
+                case '/':
+                    aux = a / b;
+                    break;
+            }
+            empilhar(valores, aux);
+        }
+        token = strtok(NULL, " \n");
+    }
+
+    int result;
+    desempilhar(valores, &result);
+    printf("Resultado: %d\n", result);
+
+    destruir(valores);
+
+    return 0;
+}

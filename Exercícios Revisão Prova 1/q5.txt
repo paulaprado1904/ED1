@@ -1,0 +1,65 @@
+a) 
+
+Sim, é possível afirmar que a Pilha pode ser considerada como um caso especial de Deque.
+
+Um Deque é uma estrutura de dados que permite inserir e remover elementos tanto no início quanto no fim da fila. Já uma Pilha é uma estrutura de dados que segue a regra LIFO (Last In, First Out), ou seja, o último elemento inserido é o primeiro a ser removido.
+
+Sendo assim, podemos implementar uma Pilha utilizando um Deque, desde que restrinjamos as operações de inserção e remoção apenas no final da fila. Em outras palavras, podemos utilizar um Deque para implementar uma Pilha.
+
+Segue abaixo um exemplo de pseudocódigo para implementar uma Pilha usando um Deque: 
+
+ 
+
+// Cria um Deque 
+
+Deque pilha = criarDeque() 
+
+ 
+// Adiciona um elemento na Pilha 
+
+Inserir.elemento(elemento) 
+
+
+// Remove e retorna o último elemento adicionado  
+
+removerFinal() 
+
+
+// Verifica se a Pilha está vazia 
+
+Verifica.vazio() 
+
+ 
+
+b) 
+
+Sim, podemos considerar a Fila como um caso especial de Deque.
+
+A Fila é uma estrutura de dados utilizada para armazenar um conjunto de elementos, seguindo o princípio FIFO (First-In, First-Out), ou seja, o primeiro elemento a entrar é o primeiro a sair. Novos elementos são adicionados ao final da Fila e o único elemento que pode ser removido em um determinado momento é o primeiro elemento da Fila.
+
+Por outro lado, um Deque permite a inserção e remoção de elementos tanto no início quanto no fim da fila.
+
+Portanto, podemos implementar uma Fila utilizando um Deque, desde que restrinjamos as operações de inserção apenas no final da fila e de remoção apenas no início da fila. Dessa forma, a estrutura de dados se comportará como uma Fila seguindo o princípio FIFO.
+Segue  um exemplo de pseudocódigo para implementar uma Fila usando um Deque: 
+
+  
+
+// Cria um Deque: 
+
+Deque fila = criarDeque() 
+
+
+// Adiciona um elemento  
+
+adiciona.elementoFinal(elemento) 
+ 
+
+// Remove e retorna o primeiro elemento  
+
+remove.elemento() 
+
+
+// Verifica se a Fila está vazia 
+
+Verifica.vazio() 
+

@@ -1,0 +1,22 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
+
+int ak(int m, int n){
+    if (m == 0)
+        return n + 1;
+    if (m > 0 && n == 0)
+        return ak(m-1,1);
+    else
+        return ak(m-1,ak(m,n-1));
+}
+
+int main(){
+
+    int a, b;
+    printf("Entre com dois numeros para o função de Ackermann: ");
+    scanf("%d %d", &a, &b);
+
+    printf("%d", ak(a,b));
+
+}

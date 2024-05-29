@@ -1,0 +1,22 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
+
+int combinacao(int n, int k){
+    if (k == 1)
+        return n;
+    if (k == n)
+        return 1;
+    else
+        return (combinacao(n-1, k-1) + combinacao(n-1,k));
+}
+
+int main(){
+
+    int a, b;
+    printf("Entre com dois numeros para o função de combinacao: ");
+    scanf("%d %d", &a, &b);
+
+    printf("%d", combinacao(a,b));
+
+}

@@ -1,0 +1,39 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
+
+int sr(int x){
+    float y;
+   if(x >= 1){
+        y = (1 + x)/2;
+        if(y < 0){
+            y = y * (-1);
+        if(x - (y*y) >= pow(10,-6)){
+            return y;
+        }
+        else
+            return sr(y);
+        }
+   }
+   else{
+        y = (x + 1)/2;
+        if(y < 0){
+            y = y * (-1);
+        if((x - (y*y) <= pow(10,-6)) || ((y*y) - x <= pow(10,-6)) ){
+            return y;
+        }
+        else
+            return sr(y);
+   }
+
+}
+}
+int main(){
+
+    int a;
+    printf("Entre com um numero para sua raiz quadrada: ");
+    scanf("%d", &a);
+
+    printf("%d", sr(a));
+    return 0;
+}

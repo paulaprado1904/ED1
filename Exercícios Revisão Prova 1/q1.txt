@@ -1,0 +1,130 @@
+#include<stdlib.h>
+#include<stdio.h>
+
+#define  MAX  7 // Tamanho
+
+struct fila {
+	int primeiro;
+	int final;
+	int nro_elementos;
+	char elementos[MAX];
+};
+
+typedef struct fila Fila;
+
+Fila *criar()
+{
+
+	Fila *f;
+
+	f = malloc(sizeof(Fila));
+	if (f != NULL) {
+		f->primeiro = 0;
+		f->final = 0;
+		f->nro_elementos = 0;
+	}
+
+	return f;
+}
+
+void destruir(Fila *f)
+{
+	if (f != NULL) free(f);
+}
+}
+
+int vazia(Fila *f)
+{
+	if (f->nro_elementos == 0) return 1; // true
+	else return 0; // false
+}
+
+int cheia(Fila *f)
+{
+	if (f->nro_elementos == MAX) return 1; // true
+	else return 0; // false
+}
+
+int inserir(Fila *f, char x)
+{
+    //if (cheia(f))
+	if (cheia(f) == 1)
+		return 0;	// false
+	else {
+		f->nro_elementos = f->nro_elementos + 1;
+		f->elementos[ f->final ] = x;
+
+		// avanca o indice Final. Atencao: o vetor eh circular
+		if (f->final == (MAX-1))
+		    f->final = 0;
+		else
+		    f->final = f->final + 1;
+
+		return 1;	// true
+	}
+}
+
+int retirar(Fila *f, char *x)
+{
+	if (vazia(f) == 1)
+		return 0;	// false
+	else {
+	    f->nro_elementos = f->nro_elementos - 1;
+	    *x = f->elementos[ f->primeiro ];
+
+	    if (f->primeiro == (MAX-1))
+	        f->primeiro = 0;
+	    else f->primeiro = f->primeiro + 1;
+
+		return 1;	// true
+	}
+}
+
+int FuraFila(Fila *f, char x){
+    if (cheia(f) == 1) return 0; //false - não é possível Furar Fila
+
+    else{
+        if (f->primeiro == 0){
+            f->primeiro = (MAX-1);
+        }else {
+            f->primeiro = (f->primeiro - 1);
+        }
+        f->elementos[f->primeiro] = x;
+        f->nro_elementos = f->nro_elementos + 1;
+    }
+    return 1;               // true - Furou a Fila
+
+}
+
+int main()
+{
+	Fila *F;
+    char c;
+
+	int teste;
+
+	F = criar();
+	if (F == NULL) {
+		printf("Erro: nao foi possivel criar a pilha\n");
+		exit(-1);
+	}
+
+    inserir(F, '0');
+    inserir(F, '1');
+    inserir(F, '2');
+    inserir(F, '3');
+    FuraFila(F, '4');
+    retirar(F, &c);
+    printf("%c", c);
+    retirar(F, &c);
+    printf("%c", c);
+    printf("\n\n");
+
+
+	while (retirar(F, &c) == 1)
+		printf("%c\n", c);
+
+	destruir(F);
+
+	return 0;
+}
